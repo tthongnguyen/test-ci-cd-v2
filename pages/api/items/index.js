@@ -1,0 +1,28 @@
+import * as store from '../../../src/store';
+import { withSentry as withSentryMaybe } from '@sentry/nextjs';
+import '../../../src/sentry';
+
+const withSentry = typeof withSentryMaybe === 'function' ? withSentryMaybe : (h) => h;
+
+function handler(req, res) {
+  const { method } = req;
+
+  try {
+    if (method === 'GET') {
+      const items = store.listItems();
+      return res.status(200).json({ items });
+    }
+
+    if (method === 'POST') {
+      const item = store.createItem(req.body || {});
+      return res.status(201).json({ item });
+    }
+
+    res.setHeader('Allow', ['GET', 'POST']);
+    return res.status(405).json({ error: `Method ${method} Not Allowed` });
+  } catch (err) {
+    return res.status(400).json({ error: err.message || 'Bad Request' });
+  }
+}
+
+export default withSentry(handler);
