@@ -1,6 +1,8 @@
 import * as store from '../../../src/store';
+import { withSentry } from '@sentry/nextjs';
+import '../../../src/sentry';
 
-export default function handler(req, res) {
+function handler(req, res) {
   const { method } = req;
 
   try {
@@ -20,3 +22,5 @@ export default function handler(req, res) {
     return res.status(400).json({ error: err.message || 'Bad Request' });
   }
 }
+
+export default withSentry(handler);

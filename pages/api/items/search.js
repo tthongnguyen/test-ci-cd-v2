@@ -1,6 +1,8 @@
 import * as store from '../../../src/store';
+import { withSentry } from '@sentry/nextjs';
+import '../../../src/sentry';
 
-export default function handler(req, res) {
+function handler(req, res) {
   const { method, query } = req;
   if (method !== 'GET') {
     res.setHeader('Allow', ['GET']);
@@ -15,3 +17,4 @@ export default function handler(req, res) {
   }
 }
 
+export default withSentry(handler);
