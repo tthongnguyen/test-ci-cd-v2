@@ -3,9 +3,7 @@ name: CI/CD with Vercel
 on:
   push:
     branches:
-      - main
-      - develop
-      - "feature/**"
+      - "**"   # chạy trên mọi branch
   pull_request:
 
 jobs:
@@ -63,7 +61,7 @@ jobs:
   preview-deploy:
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref != 'refs/heads/main'
+    if: github.ref != 'refs/heads/main'   # 🔹 mọi branch trừ main thì chạy Preview
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -80,7 +78,7 @@ jobs:
   production-deploy:
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'   # 🔹 chỉ main mới deploy Production
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -93,4 +91,3 @@ jobs:
           npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-

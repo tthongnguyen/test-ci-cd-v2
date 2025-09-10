@@ -38,6 +38,12 @@ function deleteItem(id) {
   return true;
 }
 
+function searchItems(q) {
+  const term = (q || '').toString().trim().toLowerCase();
+  if (!term) return [];
+  return items.filter((i) => i.name.toLowerCase().includes(term));
+}
+
 // For tests
 function resetStore() {
   nextId = 1;
@@ -50,6 +56,6 @@ module.exports = {
   getItem,
   updateItem,
   deleteItem,
+  searchItems,
   resetStore,
 };
-

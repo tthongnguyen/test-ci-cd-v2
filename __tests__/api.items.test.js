@@ -1,5 +1,6 @@
 const handlerList = require('../pages/api/items/index').default || require('../pages/api/items/index');
 const handlerItem = require('../pages/api/items/[id]').default || require('../pages/api/items/[id]');
+const handlerSearch = require('../pages/api/items/search').default || require('../pages/api/items/search');
 const store = require('../src/store');
 
 function mockReqRes({ method = 'GET', body = null, query = {} } = {}) {
@@ -75,5 +76,21 @@ describe('API /api/items CRUD', () => {
     await handlerItem(g2.req, g2.res);
     expect(g2.res.statusCode).toBe(404);
   });
-});
 
+  test('SEARCH items by q', async () => {
+    // create data
+    await handlerList(...Object.values(mockReqRes({ method: 'POST', body: { name: 'Alpha' } })));
+    await handlerList(...Object.values(mockReqRes({ method: 'POST', body: { name: 'Beta' } })));
+    await handlerList(...Object.values(mockReqRes({ method: 'POST', body: { name: 'alphabet' } })));
+
+    const s1 = mockReqRes({ method: 'GET', query: { q: 'alp' } });
+    await handlerSearch(s1.req, s1.res);
+    expect(s1.res.statusCode).toBe(200);
+    expect(s1.res.body.items.map(i => i.name)).toEqual(['Alpha', 'alphabet']);
+
+    const s2 = mockReqRes({ method: 'GET', query: { q: '' } });
+    await handlerSearch(s2.req, s2.res);
+    expect(s2.res.statusCode).toBe(200);
+    expect(s2.res.body.items).toEqual([]);
+  });
+});
