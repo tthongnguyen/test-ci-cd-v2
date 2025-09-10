@@ -1,4 +1,4 @@
-const store = require('../../../src/store');
+import * as store from '../../../src/store';
 
 export default function handler(req, res) {
   const { method } = req;
@@ -20,4 +20,3 @@ export default function handler(req, res) {
     return res.status(400).json({ error: err.message || 'Bad Request' });
   }
 }
-
