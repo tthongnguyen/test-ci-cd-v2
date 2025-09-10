@@ -6,7 +6,8 @@ function listItems() {
 }
 
 function createItem(data) {
-  const name = (data && data.name ? String(data.name) : '').trim();
+  const name = (data?.name ? String(data.name) : '').trim();
+
   if (!name) throw new Error('Name is required');
   const item = { id: nextId++, name };
   items.push(item);

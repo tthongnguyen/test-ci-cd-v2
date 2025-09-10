@@ -5,12 +5,28 @@ import '../../../src/sentry';
 const withSentry = typeof withSentryMaybe === 'function' ? withSentryMaybe : (h) => h;
 
 function handler(req, res) {
-  const { method } = req;
+  const { method, query } = req;
 
   try {
     if (method === 'GET') {
       const items = store.listItems();
-      return res.status(200).json({ items });
+      const hasPagination = Object.prototype.hasOwnProperty.call(query, 'limit') ||
+        Object.prototype.hasOwnProperty.call(query, 'offset');
+      if (!hasPagination) {
+        return res.status(200).json({ items });
+      }
+
+      const limitRaw = query.limit;
+      const offsetRaw = query.offset;
+      let limit = Number(limitRaw);
+      let offset = Number(offsetRaw);
+      if (!Number.isFinite(limit) || limit <= 0) limit = 50;
+      if (limit > 100) limit = 100;
+      if (!Number.isFinite(offset) || offset < 0) offset = 0;
+
+      const total = items.length;
+      const sliced = items.slice(offset, offset + limit);
+      return res.status(200).json({ items: sliced, meta: { total, limit, offset } });
     }
 
     if (method === 'POST') {
