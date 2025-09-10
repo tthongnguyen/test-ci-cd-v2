@@ -7,6 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "biome check --write",
+		"lint:check": "biome check",
 		"typecheck": "tsc --noEmit",
 		"prepare": "husky",
 		"test:ci": "jest --runInBand --detectOpenHandles --forceExit",
@@ -29,7 +30,7 @@
 		"lint-staged": "^16.1.6"
 	},
 	"lint-staged": {
-		"*.{js,jsx,ts,tsx,cjs,mjs,json,md,css,scss}": [
+		"*.{js,ts,tsx,json,css,scss,md}": [
 			"biome check --write --no-errors-on-unmatched"
 		]
 	}
