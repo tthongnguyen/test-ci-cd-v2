@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="18" failures="0" errors="0" time="0.889">
+  <testsuite name="API sorting (sort/order)" errors="0" failures="0" skipped="0" timestamp="2025-09-10T07:11:08" time="0.549" tests="2">
+    <testcase classname="API sorting (sort/order) list: sort by name asc/desc" name="API sorting (sort/order) list: sort by name asc/desc" time="0.002">
+    </testcase>
+    <testcase classname="API sorting (sort/order) search: sort by id desc" name="API sorting (sort/order) search: sort by id desc" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="API 405 paths" errors="0" failures="0" skipped="0" timestamp="2025-09-10T07:11:09" time="0.072" tests="3">
+    <testcase classname="API 405 paths items index: 405 for unsupported method" name="API 405 paths items index: 405 for unsupported method" time="0">
+    </testcase>
+    <testcase classname="API 405 paths item by id: 405 for unsupported method" name="API 405 paths item by id: 405 for unsupported method" time="0">
+    </testcase>
+    <testcase classname="API 405 paths search: 405 for unsupported method" name="API 405 paths search: 405 for unsupported method" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="API /api/items CRUD" errors="0" failures="0" skipped="0" timestamp="2025-09-10T07:11:09" time="0.079" tests="4">
+    <testcase classname="API /api/items CRUD GET empty list" name="API /api/items CRUD GET empty list" time="0.001">
+    </testcase>
+    <testcase classname="API /api/items CRUD POST create then GET list" name="API /api/items CRUD POST create then GET list" time="0.001">
+    </testcase>
+    <testcase classname="API /api/items CRUD GET/PUT/DELETE single item" name="API /api/items CRUD GET/PUT/DELETE single item" time="0.001">
+    </testcase>
+    <testcase classname="API /api/items CRUD SEARCH items by q" name="API /api/items CRUD SEARCH items by q" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="API pagination (limit/offset)" errors="0" failures="0" skipped="0" timestamp="2025-09-10T07:11:09" time="0.067" tests="2">
+    <testcase classname="API pagination (limit/offset) GET /api/items with limit/offset returns meta and sliced items" name="API pagination (limit/offset) GET /api/items with limit/offset returns meta and sliced items" time="0.001">
+    </testcase>
+    <testcase classname="API pagination (limit/offset) GET /api/items/search with limit/offset returns meta and sliced items" name="API pagination (limit/offset) GET /api/items/search with limit/offset returns meta and sliced items" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="sum" errors="0" failures="0" skipped="0" timestamp="2025-09-10T07:11:09" time="0.013" tests="1">
+    <testcase classname="sum adds two numbers" name="sum adds two numbers" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="store.searchItems" errors="0" failures="0" skipped="0" timestamp="2025-09-10T07:11:09" time="0.013" tests="2">
+    <testcase classname="store.searchItems returns empty array for empty query" name="store.searchItems returns empty array for empty query" time="0">
+    </testcase>
+    <testcase classname="store.searchItems finds items case-insensitively" name="store.searchItems finds items case-insensitively" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="store CRUD" errors="0" failures="0" skipped="0" timestamp="2025-09-10T07:11:09" time="0.015" tests="4">
+    <testcase classname="store CRUD create and list items" name="store CRUD create and list items" time="0.001">
+    </testcase>
+    <testcase classname="store CRUD get item by id" name="store CRUD get item by id" time="0.001">
+    </testcase>
+    <testcase classname="store CRUD update item" name="store CRUD update item" time="0">
+    </testcase>
+    <testcase classname="store CRUD delete item" name="store CRUD delete item" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>

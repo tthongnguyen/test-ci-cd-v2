@@ -3,11 +3,12 @@ name: CI/CD with Vercel
 on:
   push:
     branches:
-      - "**"   # chạy trên mọi branch
+      - '**'
   pull_request:
 
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,9 +17,10 @@ jobs:
           node-version: 20
           cache: "npm"
       - run: npm ci
-      - run: npm run lint
+      - run: npm run lint:check
 
   test:
+    name: Test
     runs-on: ubuntu-latest
     needs: lint
     services:
@@ -61,7 +63,7 @@ jobs:
   preview-deploy:
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref != 'refs/heads/main'   # 🔹 mọi branch trừ main thì chạy Preview
+    if: github.ref != 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -70,7 +72,7 @@ jobs:
       - run: npm ci
       - name: Deploy to Vercel (Preview)
         run: |
-          echo "🧪 Deploying PREVIEW for branch ${{ github.ref }}"
+          echo "Deploying PREVIEW for branch ${{ github.ref }}"
           npx vercel --token=${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -78,7 +80,7 @@ jobs:
   production-deploy:
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main'   # 🔹 chỉ main mới deploy Production
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -87,7 +89,7 @@ jobs:
       - run: npm ci
       - name: Deploy to Vercel (Production)
         run: |
-          echo "🚀 Deploying PRODUCTION"
+          echo "Deploying PRODUCTION"
           npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

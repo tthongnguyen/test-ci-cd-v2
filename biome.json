@@ -1,18 +1,12 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.3/schema.json",
-  "files": {
-    "ignore": [
-      "node_modules/",
-      ".next/",
-      "coverage/",
-      "out/"
-    ]
-  },
-  "formatter": {
-    "enabled": true
-  },
-  "linter": {
-    "enabled": true
-  }
+	"$schema": "https://biomejs.dev/schemas/1.9.3/schema.json",
+	"files": {
+		"ignore": ["node_modules/", ".next/", "coverage/", "out/"]
+	},
+	"formatter": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true
+	}
 }
-
