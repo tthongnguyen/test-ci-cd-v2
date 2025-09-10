@@ -1,6 +1,8 @@
 import * as store from '../../../src/store';
-import { withSentry } from '@sentry/nextjs';
+import { withSentry as withSentryMaybe } from '@sentry/nextjs';
 import '../../../src/sentry';
+
+const withSentry = typeof withSentryMaybe === 'function' ? withSentryMaybe : (h) => h;
 
 function handler(req, res) {
   const { method } = req;
