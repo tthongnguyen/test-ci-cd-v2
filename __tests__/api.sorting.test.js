@@ -4,6 +4,7 @@ const handlerList =
 const handlerSearch =
 	require("../pages/api/items/search").default ||
 	require("../pages/api/items/search");
+const store = require("../src/store");
 
 function mockReqRes({ method = "GET", body = null, query = {} } = {}) {
 	const req = { method, body, query };
@@ -30,6 +31,9 @@ function mockReqRes({ method = "GET", body = null, query = {} } = {}) {
 }
 
 describe("API sorting (sort/order)", () => {
+	beforeEach(() => {
+		if (store && typeof store.resetStore === "function") store.resetStore();
+	});
 	test("list: sort by name asc/desc", async () => {
 		for (const name of ["bravo", "alpha", "charlie"]) {
 			const c = mockReqRes({ method: "POST", body: { name } });

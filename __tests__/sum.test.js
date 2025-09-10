@@ -1,8 +1,7 @@
-const { sum } = require('../src/sum');
+const { sum } = require("../src/sum");
 
-describe('sum', () => {
-  it('adds two numbers', () => {
-    expect(sum(2, 3)).toBe(5);
-  });
+describe("sum", () => {
+	it("adds two numbers", () => {
+		expect(sum(2, 3)).toBe(5);
+	});
 });
-
