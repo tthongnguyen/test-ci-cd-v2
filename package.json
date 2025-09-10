@@ -6,10 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
-    "typecheck": "biome check --reporter=github .",
-    "test": "jest",
-    "test:ci": "jest --ci --reporters=default --reporters=jest-junit"
+      "lint": "biome check --write",
+    "typecheck": "tsc --noEmit",
+     "test:ci": "jest --runInBand --detectOpenHandles --forceExit",
+    "test": "jest"
   },
   "dependencies": {
     "next": "^14.2.12",
