@@ -1,4 +1,4 @@
-name: CI/CD with Vercel
+name: CI/CD (Deploy Stub)
 
 on:
   push:
@@ -49,6 +49,7 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/testdb
 
   build:
+    name: Build
     runs-on: ubuntu-latest
     needs: test
     steps:
@@ -61,35 +62,17 @@ jobs:
       - run: npm run build
 
   preview-deploy:
+    name: Preview Deploy (Stub)
     runs-on: ubuntu-latest
     needs: build
     if: github.ref != 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - name: Deploy to Vercel (Preview)
-        run: |
-          echo "Deploying PREVIEW for branch ${{ github.ref }}"
-          npx vercel --token=${{ secrets.VERCEL_TOKEN }} --yes
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - run: echo "✅ Pretend to deploy PREVIEW for branch ${{ github.ref_name }}"
 
   production-deploy:
+    name: Production Deploy (Stub)
     runs-on: ubuntu-latest
     needs: build
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - name: Deploy to Vercel (Production)
-        run: |
-          echo "Deploying PRODUCTION"
-          npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - run: echo "🚀 Pretend to deploy PRODUCTION for branch main"
