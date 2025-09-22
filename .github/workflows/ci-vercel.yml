@@ -1,4 +1,4 @@
-name: CI/CD (Deploy Stub)
+name: CI/CD Pipeline
 
 on:
   push:
@@ -15,14 +15,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: npm
       - run: npm ci
       - run: npm run lint:check
 
   test:
     name: Test
     runs-on: ubuntu-latest
-    needs: lint
     services:
       postgres:
         image: postgres:15
@@ -42,7 +41,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: npm
       - run: npm ci
       - run: npm run test:ci
         env:
@@ -51,28 +50,49 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: npm
       - run: npm ci
       - run: npm run build
 
   preview-deploy:
-    name: Preview Deploy (Stub)
+    name: Preview Deploy
     runs-on: ubuntu-latest
-    needs: build
+    needs: [lint, test, build]   # đợi cả 3 job xong
     if: github.ref != 'refs/heads/main'
     steps:
-      - run: echo "✅ Pretend to deploy PREVIEW for branch ${{ github.ref_name }}"
+      - run: echo "🚀 Pretend to deploy PREVIEW for branch ${{ github.ref_name }}"
+      # - uses: actions/checkout@v4
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
+      # - run: npm ci
+      # - name: Deploy to Vercel (Preview)
+      #   run: |
+      #     echo "Deploying PREVIEW for branch ${{ github.ref }}"
+      #     npx vercel --token=${{ secrets.VERCEL_TOKEN }} --yes
+      #   env:
+      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
   production-deploy:
-    name: Production Deploy (Stub)
+    name: Production Deploy
     runs-on: ubuntu-latest
-    needs: build
+    needs: [lint, test, build]   # đợi cả 3 job xong
     if: github.ref == 'refs/heads/main'
     steps:
-      - run: echo "🚀 Pretend to deploy PRODUCTION for branch main"
+      - run: echo "🚀 Pretend to deploy PRODUCTION on main"
+      # - uses: actions/checkout@v4
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
+      # - run: npm ci
+      # - name: Deploy to Vercel (Production)
+      #   run: |
+      #     echo "Deploying PRODUCTION"
+      #     npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+      #   env:
+      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
