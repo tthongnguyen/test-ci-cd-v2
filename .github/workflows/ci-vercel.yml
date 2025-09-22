@@ -62,7 +62,7 @@ jobs:
   preview-deploy:
     name: Preview Deploy
     runs-on: ubuntu-latest
-    needs: [lint, test, build]   # đợi cả 3 job xong
+    needs: [lint, test, build]
     if: github.ref != 'refs/heads/main'
     steps:
       - run: echo "🚀 Pretend to deploy PREVIEW for branch ${{ github.ref_name }}"
